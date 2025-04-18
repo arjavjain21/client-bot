@@ -1,0 +1,10 @@
+slack_bolt
+python-dotenv
+faiss-cpu
+sentence-transformers
+openai
+numpy
+transformers
+duckduckgo_search
+gspread
+google-auth

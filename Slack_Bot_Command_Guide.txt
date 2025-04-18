@@ -1,0 +1,32 @@
+Slack Bot Command Guide
+1. Sync Data
+Purpose: Refresh client data from Google Sheets and update the internal index.
+Usage:
+@clientbot sync data:
+
+2. Update Google Sheet
+Purpose: Update or add client data in the Google Sheet.
+Requirements: Must include a unique identifier (client_email or account_code).
+
+Usage (JSON Format):
+@clientbot update gsheet: {"client_email": "client@example.com", "company_name": "Hyperke"}
+
+Usage (Natural Language):
+@clientbot update gsheet: update client with account_code ABC to change company name to Hyperke
+
+Note: Ensure your update command contains a unique identifier; otherwise, you'll see a parsing error.
+
+3. Update Memory
+Purpose: Add a free-text note to your conversation memory (for context in future queries).
+Usage:
+@clientbot update memory: remember that ABC client prefers phone calls.
+
+4. Internet Search
+Purpose: Perform an online search via DuckDuckGo when local data is insufficient or you need current information.
+Usage:
+@clientbot search: latest news on Hyperke
+
+5. General Query
+Purpose: Ask a general question; the bot will search locally first and then online if needed.
+Usage:
+@clientbot tell me about Hyperke
