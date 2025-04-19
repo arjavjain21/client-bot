@@ -1,4 +1,6 @@
 import os
+import threading
+from flask import Flask
 import json
 import re
 import csv
@@ -7,6 +9,29 @@ from dotenv import load_dotenv
 
 # Load environment variables from .env
 load_dotenv()
+
+from slack_bolt import App
+from slack_bolt.adapter.socket_mode import SocketModeHandler
+
+# Flask health-check app
+health_app = Flask(__name__)
+@health_app.route("/health")
+def health():
+    return "OK", 200
+
+def run_health():
+    port = int(os.environ.get("PORT", 8080))
+    health_app.run(host="0.0.0.0", port=port)
+
+if __name__ == "__main__":
+    # Start health‑check server in background
+    threading.Thread(target=run_health, daemon=True).start()
+
+    # Your existing initialization
+    initialize_client_data()
+    logger.info("Starting Slack Bot in Socket Mode…")
+    handler = SocketModeHandler(app, SLACK_APP_TOKEN)
+    handler.start()
 
 # -------------------------------
 # Logging: Console & File Handler
