@@ -8,3 +8,4 @@ transformers
 duckduckgo_search
 gspread
 google-auth
+huggingface_hub[hf_xet]
