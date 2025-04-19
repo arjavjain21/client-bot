@@ -23,16 +23,6 @@ def run_health():
     port = int(os.environ.get("PORT", 8080))
     health_app.run(host="0.0.0.0", port=port)
 
-if __name__ == "__main__":
-    # Start health‑check server in background
-    threading.Thread(target=run_health, daemon=True).start()
-
-    # Your existing initialization
-    initialize_client_data()
-    logger.info("Starting Slack Bot in Socket Mode…")
-    handler = SocketModeHandler(app, SLACK_APP_TOKEN)
-    handler.start()
-
 # -------------------------------
 # Logging: Console & File Handler
 # -------------------------------
@@ -645,6 +635,7 @@ def handle_direct_messages(body, say, logger):
     except Exception as e:
         logger.error("Error handling direct message event: %s", e)
         say("Sorry, an error occurred processing your message.")
+
 
 # -------------------------------
 # Main Entry Point: Initialize Data & Start Slack Bot
