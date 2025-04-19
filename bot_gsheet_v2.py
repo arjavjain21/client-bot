@@ -1,5 +1,4 @@
 import os
-import threading
 from flask import Flask
 import json
 import re
@@ -641,7 +640,15 @@ def handle_direct_messages(body, say, logger):
 # Main Entry Point: Initialize Data & Start Slack Bot
 # -------------------------------
 if __name__ == "__main__":
+    # 1) Launch the health‑check server in a daemon thread
+    import threading
+    threading.Thread(target=run_health, daemon=True).start()
+
+    # 2) Load or sync your client data once at startup
     initialize_client_data()
-    logger.info("Starting Slack Bot with OpenAI-powered Retrieval-Augmented Generation in Socket Mode...")
+
+    # 3) Start your Slack bot in Socket Mode
+    logger.info("Starting Slack Bot in Socket Mode…")
     handler = SocketModeHandler(app, SLACK_APP_TOKEN)
     handler.start()
+
