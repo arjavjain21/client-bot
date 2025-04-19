@@ -18,6 +18,11 @@ health_app = Flask(__name__)
 def health():
     return "OK", 200
 
+# Also respond on the root path so Railway’s default probe succeeds
+@health_app.route("/")
+def root():
+    return "OK", 200
+
 def run_health():
     port = int(os.environ.get("PORT", 8080))
     health_app.run(host="0.0.0.0", port=port)
