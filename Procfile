@@ -1,1 +1,1 @@
-web: python bot_gsheet_v2.py
+worker: python bot_gsheet_v2.py
